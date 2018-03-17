@@ -1,13 +1,6 @@
 #include <iostream>
 
 using namespace std;
-
-/*int calculateSS()
-{
-
-    return 0;
-}*/
-
 int main()
 {
     int NOP,NOI,i,s=0,ss=0,finish=0,k;
@@ -15,10 +8,9 @@ int main()
     cin>>NOP;
     cout<<"\nEnter the number of instances: ";
     cin>>NOI;
-    int allocation[NOP][NOI]={{0,1,0},{2,0,0},{3,0,2},{2,1,1},{0,0,2}},w=NOP;
-    /*int waitingQueue[NOP]; // 0 = finish & 1 = waiting*/
+    int allocation[NOP][NOI],w=NOP;
     int finishQueue[NOP];// 0 = not finish & 1=finish
-    int maximum[NOP][NOI]={{7,5,3},{3,2,2},{9,0,2},{2,2,2},{4,3,3}};
+    int maximum[NOP][NOI];
     int available[NOP][NOI],tempAvail[NOI];
     int need[NOP][NOI];
     int safeSequence[NOP];
@@ -28,12 +20,7 @@ int main()
         cout<<"\nEnter P["<<i<<"] allocation values: ";
         for(k=0; k<NOI; k++)
         {
-           // cin>>allocation[i][k];
-        	//cout<<allocation[i][k]; if(k==NOI-1) cout<<endl;
-            /*waitingQueue[i]=1;*/
-/*            allocation[][]={
-            	0,1,0,2,0,0,3,0,2,2,1,1,0,0,2
-            };*/
+           cin>>allocation[i][k];
         }
     }
     cout<<"\nEnter Max matrix values: ";
@@ -42,8 +29,7 @@ int main()
         cout<<"\nEnter P["<<i<<"] maximum values: ";
         for(k=0; k<NOI; k++)
         {
-           // cin>>maximum[i][k];
-        		//cout<<maximum[i][k]; if(k==NOI-1) cout<<endl;
+           cin>>maximum[i][k];
         }
     }
     cout<<"\nEnter the value of Available resources for "<<NOI<<" Instances: ";
@@ -61,48 +47,30 @@ int main()
         }
     }
     cout<<endl<<endl;
-/*    cout<<"\nAvailable Matrix : \n";
-    for(i=0; i<NOP; i++)
-    {
-        for(k=0; k<NOI; k++)
-        {
-        	cout<<available[i][k]<<" ";if(k==NOI-1) cout<<endl;
-        }
-    }*/
-    do//P=n and I=m
+    do
     {  	
-   	/*cout<<"\nfinishQueue:";
-   	for(i=0;i<NOP;i++)
-    {
-    	cout<<finishQueue[i]<<" ";
-	}*/
+   	
     for(i=0;i<NOP;i++)
     {
-    	/*cout<<"\nFinish:"<<finishQueue[i]<<" \n";*/
+    	
     	if(finishQueue[i]==0) //not finished
     	{
     		for(k=0;k<NOI;k++) available[i][k]=tempAvail[k];
-	    	/*for( k=0;k<NOI;k++)
-	    	{
-	    		cout<<need[i][k]<<":"<<available[i][k]<<" ";	
-	    	}*/cout<<endl;
 	    	for( k=0;k<NOI;k++)
 	    	{
-	    		//cout<<"\n\nI:"<<i<<" K:"<<k<<"\n\n";
 	    		if(need[i][k]<=available[i][k])	s++; else break;
 	    	}	
-	    	//cout<<"\nS:"<<s<<"\n";
 	    	if(s==NOI)
 	    	{
 	    		finishQueue[i]=1;
-	    		safeSequence[ss]=i;ss++;w--;/*cout<<"\n\nSAFESEQUENCE["<<ss-1<<"] "<<safeSequence[ss-1]<<"\n\n";*/
+	    		safeSequence[ss]=i;ss++;w--;
 	    		for(k=0;k<NOI;k++)
                 {
                     tempAvail[k] = available[i][k]+allocation[i][k];
-                }/*cout<<"\n\nCHANGE:W: "<<w<<" \n\n";*/
+                }
 	    	}
 	    	else 
-	    	{/* cout<<"\n\nSAME\n\n";*/
+	    	{
 	    		for(k=0;k<NOI;k++)
             	{
                 	tempAvail[k] = available[i][k];
@@ -119,7 +87,7 @@ int main()
             }
     	}
     }
-    }while(w>0);cout<<endl<<endl;
+    }while(w>0);cout<<endl;
     cout<<"\nSAFE SEQUENCE\n";
     for(i=0;i<NOP;i++)
     	cout<<safeSequence[i]<<" ";
